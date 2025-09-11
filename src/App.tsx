@@ -36,6 +36,8 @@ export const App: React.FC = () => {
 
   const remainingItems = todosList.filter(todo => !todo.completed);
 
+  const isAddingTodo = pendingTodo !== null;
+
   const updateTodo = (id: number, data: Partial<Todo>) => {
     return client.patch<Todo>(`/todos/${id}`, data);
   };
@@ -257,11 +259,11 @@ export const App: React.FC = () => {
       <h1 className="todoapp__title">todos</h1>
       <div className="todoapp__content">
         <Header
-          newTitle={newTitle}
-          onTitleChange={handleTitleChange}
+          newTodoText={newTitle}
+          onNewTodoTextChange={handleTitleChange}
           onAddTodo={handleAddTodo}
           newTitleRef={newTitleRef}
-          pendingTodo={pendingTodo}
+          isAddingTodo={isAddingTodo}
           todosList={todosList}
           onToggleAll={handleToggleAll}
         />

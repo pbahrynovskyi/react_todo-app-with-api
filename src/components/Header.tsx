@@ -4,23 +4,23 @@ import classNames from 'classnames';
 import { Todo } from '../types/Todo';
 
 interface HeaderProps {
-  newTitle: string;
-  onTitleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  newTodoText: string;
+  onNewTodoTextChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onAddTodo: (e: React.FormEvent<HTMLFormElement>) => void;
   newTitleRef: React.RefObject<HTMLInputElement>;
-  pendingTodo: Todo | null;
+  isAddingTodo: boolean;
   todosList: Todo[];
   onToggleAll: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  newTitle,
-  onTitleChange,
+  newTodoText,
+  onNewTodoTextChange,
   onAddTodo,
   newTitleRef,
-  pendingTodo,
   todosList,
   onToggleAll,
+  isAddingTodo,
 }) => {
   return (
     <header className="todoapp__header">
@@ -28,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           type="button"
           className={classNames('todoapp__toggle-all', {
-            active: todosList.length > 0 && todosList.every(t => t.completed),
+            active: todosList.every(t => t.completed),
           })}
           data-cy="ToggleAllButton"
           onClick={onToggleAll}
@@ -40,10 +40,10 @@ export const Header: React.FC<HeaderProps> = ({
           type="text"
           className="todoapp__new-todo"
           placeholder="What needs to be done?"
-          value={newTitle}
-          onChange={onTitleChange}
+          value={newTodoText}
+          onChange={onNewTodoTextChange}
           ref={newTitleRef}
-          disabled={!!pendingTodo}
+          disabled={isAddingTodo}
         />
       </form>
     </header>
